@@ -1,0 +1,120 @@
+<%- include('partials/header', { title: 'Dashboard' }) %>
+
+    <div class="container-fluid">
+        <div class="row">
+
+            <!-- Main Content -->
+            <main class="container">
+                <h1 class="my-4">Dashboard</h1>
+
+                <!-- KPI Cards -->
+                <div class="row mb-4">
+                    <div class="col-md-3">
+                        <div class="card text-white bg-primary mb-3 shadow">
+                            <div class="card-body">
+                                <h5 class="card-title">Total Records</h5>
+                                <p class="card-text fs-4">
+                                    <%= totalLeads %>
+
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="card text-white bg-success mb-3 shadow">
+                            <div class="card-body">
+                                <h5 class="card-title">Active</h5>
+                                <p class="card-text fs-4">
+                                    <%= activeCount %>
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="card text-white bg-warning mb-3 shadow">
+                            <div class="card-body">
+                                <h5 class="card-title">Replies Pending</h5>
+                                <p class="card-text fs-4">
+                                    <%= repliesPending %>
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+
+                <!-- Message Records -->
+                <div class="card shadow">
+                    <div class="card-header bg-secondary text-white">
+                        Message Records
+                    </div>
+                    <div class="card-body">
+                        <table class="table table-striped table-bordered" id="messageTable">
+                            <thead class="table-dark">
+                                <tr>
+                                    <th>Name</th>
+                                    <th>Number</th>
+                                    <th>Last Message</th>
+                                    <th>Last Interaction Date</th>
+                                    <th>Day Counter</th>
+                                    <th>Status</th>
+                                    <th>Replies</th>
+                                    <th>Notes</th>
+                                    <th>Source</th>
+
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <% data.forEach(record => { %>
+                                    <tr>
+                                        <td>
+                                            <%= record.Name %>
+                                        </td>
+                                        <td>
+                                            <%= record.Number %>
+                                        </td>
+                                        <td>
+                                            <%= record['Last Message'] %>
+                                        </td>
+                                        <td>
+                                            <%= record['Last Interaction Date'] %>
+                                        </td>
+                                        <td>
+                                            <%= record['Day Counter'] %>
+                                        </td>
+                                        <td>
+                                            <%= record.Status %>
+                                        </td>
+                                        <td>
+                                            <%= record.Replies %>
+                                        </td>
+                                        <td>
+                                            <%= record.Notes || '' %>
+                                        </td>
+                                        <td>
+                                            <%= record.Source %>
+                                        </td>
+                                    </tr>
+                                    <% }) %>
+                            </tbody>
+
+                        </table>
+                    </div>
+                </div>
+            </main>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/datatables.net/js/jquery.dataTables.min.js"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/datatables.net-dt/css/jquery.dataTables.min.css">
+
+    <script>
+        $(document).ready(function() {
+            $('#messageTable').DataTable({
+                "pageLength": 10
+            });
+        });
+    </script>
+
+    <%- include('partials/footer') %>
